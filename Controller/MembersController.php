@@ -10,8 +10,7 @@ class MembersController extends MembersAppController {
 	 * 			else it will call is_item_in_cart() function
 	 */
 	function is_member($user_id = null) {
-		App::Import('Model', 'User');
-		$user = new User();
+		$user = ClassRegistry::init('Users.User');
 
 		$user_id = isset($user_id) ? $user_id : $this->Auth->user('id');
 		$userInfo = $user->findById($user_id);
@@ -23,8 +22,7 @@ class MembersController extends MembersAppController {
 			// user hasnt paid anything yet. Check if its in cart or not
 			$this->is_item_in_cart($user_id);
 		} else {
-			// if he is admin or some other role
-			$this->redirect(__APP_DEFAULT_LOGIN_REDIRECT_URL);
+			$this->redirect(__USERS_PAID_ROLE_REDIRECT);
 		}
 	}
 
