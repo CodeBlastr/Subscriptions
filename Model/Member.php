@@ -13,7 +13,7 @@ class Member extends MembersAppModel {
 	 */ 
  	function changeUserRole($user_id, $action ){
 
- 			App::Import('Model', 'User');
+ 			App::Import('Model', 'Users.User');
 			$user = new User();
 			
 			if($action == 'suspend') {
@@ -38,7 +38,7 @@ class Member extends MembersAppModel {
  		
  		if($suspend_gateway == true) {
  			
- 			App::Import('Model', 'OrderTransaction');
+ 			App::Import('Model', 'Orders.OrderTransaction');
 			$this->OrderTransaction = new OrderTransaction();
 	
 	 		$order_transaction_id = $this->OrderTransaction->getArbTransactionId($user_id);
@@ -70,7 +70,7 @@ class Member extends MembersAppModel {
  	function activateSubscription($user_id, $activate_gateway = true){
  		
  		 	if($activate_gateway == true) {
- 		 		App::Import('Model', 'OrderTransaction');
+ 		 		App::Import('Model', 'Orders.OrderTransaction');
 				$this->OrderTransaction = new OrderTransaction();
 		
 		 		$order_transaction_id = $this->OrderTransaction->getArbTransactionId($user_id);

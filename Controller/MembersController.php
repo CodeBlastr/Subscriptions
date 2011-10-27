@@ -33,10 +33,13 @@ class MembersController extends MembersAppController {
 	 */
 	function is_item_in_cart($user_id = null){
 		$oi = ClassRegistry::init('Orders.OrderItem');
-		$item_in_cart = $oi->find('first', array('conditions' => array(
-							'OrderItem.customer_id' => $user_id,
-							'OrderItem.status' => 'incart', 
-							'OrderItem.arb_settings is not null')));
+		$item_in_cart = $oi->find('first', array(
+			'conditions' => array(
+				'OrderItem.customer_id' => $user_id,
+				'OrderItem.status' => 'incart', 
+				'OrderItem.arb_settings is not null'
+				)
+			));
 		if(!empty($item_in_cart)) {
 			$this->redirect('/orders/order_transactions/checkout');
 		} else {
@@ -49,15 +52,21 @@ class MembersController extends MembersAppController {
 	 * Checkout page redirects here.
 	 */
 	function set_paid_user_role(){
-		App::Import('Model', 'OrderTransaction');
+		App::import('Model', 'Orders.OrderTransaction');
 		$this->OrderTransaction = new OrderTransaction();
 
-		$user_id = $this->Auth->user('id');
+		$user_id = $this->Session->read('Auth.User.id');
 		
 		//get last OrderTransaction for logged in user
-		$ot = $this->OrderTransaction->find('first', array('conditions' => array('is_arb' => 1, 
-								'customer_id' => $user_id), 'order' => array('created DESC')
-							));
+		$ot = $this->OrderTransaction->find('first', array(
+			'conditions' => array(
+				'OrderTransaction.is_arb' => 1,
+				'OrderTransaction.customer_id' => $user_id
+				), 
+			'order' => array(
+				'OrderTransaction.created DESC'
+				)
+			));
 
 		if($ot['OrderTransaction']['status'] == 'paid'){
 
