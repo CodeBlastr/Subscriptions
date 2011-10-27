@@ -32,8 +32,7 @@ class MembersController extends MembersAppController {
 	 * 		if not found then redirect to catalog_item page
 	 */
 	function is_item_in_cart($user_id = null){
-		App::Import('Model', 'OrderItem');
-		$oi = new OrderItem();
+		$oi = ClassRegistry::init('Orders.OrderItem');
 		$item_in_cart = $oi->find('first', array('conditions' => array(
 							'OrderItem.customer_id' => $user_id,
 							'OrderItem.status' => 'incart', 
