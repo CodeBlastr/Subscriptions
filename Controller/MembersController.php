@@ -1,7 +1,8 @@
 <?php
 class MembersController extends MembersAppController {
 
-	var $name = 'Members';
+	public $name = 'Members';
+	public $uses = 'Members.Member';
 	
 	/*
 	 *  function is_member 
