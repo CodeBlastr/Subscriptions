@@ -2,4 +2,3 @@
 class MembersAppModel extends AppModel {
 
 }
-?>

@@ -93,4 +93,3 @@ class Member extends MembersAppModel {
  	}
 	
 }
-?>
